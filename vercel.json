@@ -1,3 +1,3 @@
 {
-  "installCommand": "npx --yes pnpm@10.6.1 install --no-frozen-lockfile"
+  "installCommand": "npm install --legacy-peer-deps"
 }
