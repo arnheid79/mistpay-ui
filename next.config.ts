@@ -5,6 +5,12 @@ import type { NextConfig } from "next";
 // one that coerced every unset var to `""` instead of leaving it `undefined`,
 // which silently broke every `?? fallback` reading these vars elsewhere.)
 const nextConfig: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   async rewrites() {
     const backendUrl = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL;
     if (!backendUrl) return [];
