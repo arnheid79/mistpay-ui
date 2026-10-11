@@ -90,7 +90,14 @@ function DashboardLayoutInner({ children }: { children: React.ReactNode }) {
       })
       .then((data) => {
         if (data) {
-          setProfile({ ...data, onboarded: true })
+          setProfile({
+            onboarded: Boolean(data.onboarded),
+            displayName: data.displayName || '',
+            accountType: data.accountType || 'individual',
+            avatarUrl: data.avatarUrl || null,
+            businessName: data.businessName || null,
+            websiteUrl: data.websiteUrl || null,
+          })
         } else {
           setProfile(DEFAULT_DEMO_PROFILE)
         }
@@ -157,6 +164,14 @@ function DashboardLayoutInner({ children }: { children: React.ReactNode }) {
   }
 
   const activeProfile = profile ?? DEFAULT_DEMO_PROFILE
+
+  if (!activeProfile.onboarded) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[var(--ink)] p-6">
+        <OnboardingWizard authToken={auth.authToken} onComplete={(p) => setProfile(p)} />
+      </main>
+    )
+  }
 
   return (
     <DashboardShell address={auth.address} displayName={activeProfile.displayName} avatarUrl={activeProfile.avatarUrl} onSignOut={signOut}>
