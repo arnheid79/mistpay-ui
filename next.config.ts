@@ -13,8 +13,8 @@ const nextConfig: NextConfig = {
   },
   webpack: (config) => {
     config.resolve = config.resolve || {};
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
+    config.resolve.alias = {
+      ...config.resolve.alias,
       '@farcaster/mini-app-solana': false,
     };
     return config;
